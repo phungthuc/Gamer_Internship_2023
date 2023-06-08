@@ -186,6 +186,7 @@ function gameLoop(delta) {
         gameScene.visible = false;
         gameOverScene.visible = true;
         lossMess.visible = true;
+        return;
     }
 
     //check game win
@@ -195,6 +196,7 @@ function gameLoop(delta) {
         gameScene.visible = false;
         gameOverScene.visible = true;
         winMess.visible = true;
+        return;
     }
 }
 
@@ -226,16 +228,16 @@ function randomLocationBlob(min, max) {
 function onKeyDown(event) {
     switch (event.keyCode) {
         case 37:
-            explorer.x -= secondFrame * move;
+            explorer.x -= move;
             break;
         case 38:
-            explorer.y -= secondFrame * move;
+            explorer.y -= move;
             break;
         case 39:
-            explorer.x += secondFrame * move;
+            explorer.x += move;
             break;
         case 40:
-            explorer.y += secondFrame * move;
+            explorer.y += move;
             break;
         default:
             break;

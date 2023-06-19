@@ -31,7 +31,12 @@ app.renderer.view.style.border = "1px solid #d8d8d8";
 
 document.body.appendChild(app.view);
 
-document.addEventListener("keydown", onKeyDown, false);
+window.addEventListener("keydown", function (e) {
+    keyState[e.keyCode || e.which] = true;
+}, true);
+window.addEventListener('keyup', function (e) {
+    keyState[e.keyCode || e.which] = false;
+}, true);
 
 onProgress.add(loadProgessHandler);
 loader
@@ -48,6 +53,7 @@ let vy = 2;
 let move = 5;
 let isCollisionTreasure = false;
 var secondFrame = 0;
+var keyState = {};
 let gameScene, gameOverScene, healthBar;
 let winMess, lossMess;
 function setup() {
@@ -135,6 +141,18 @@ function setup() {
 function gameLoop(delta) {
     secondFrame = delta;
     explorer.alpha = 1;
+    if (keyState[37]) {
+        explorer.x -= 3;
+    }
+    if (keyState[38]) {
+        explorer.y -= 3;
+    }
+    if (keyState[39]) {
+        explorer.x += 3;
+    }
+    if (keyState[40]) {
+        explorer.y += 3;
+    }
     //check collision explorer
     let collisionExplorer = checkCollisionCanvas(explorer);
     switch (collisionExplorer) {
@@ -225,22 +243,22 @@ function randomLocationBlob(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function onKeyDown(event) {
-    switch (event.keyCode) {
-        case 37:
-            explorer.x -= move;
-            break;
-        case 38:
-            explorer.y -= move;
-            break;
-        case 39:
-            explorer.x += move;
-            break;
-        case 40:
-            explorer.y += move;
-            break;
-        default:
-            break;
-    }
-}
+// function onKeyDown(event) {
+//     switch (event.keyCode) {
+//         case 37:
+//             explorer.x -= move;
+//             break;
+//         case 38:
+//             explorer.y -= move;
+//             break;
+//         case 39:
+//             explorer.x += move;
+//             break;
+//         case 40:
+//             explorer.y += move;
+//             break;
+//         default:
+//             break;
+//     }
+// }
 
